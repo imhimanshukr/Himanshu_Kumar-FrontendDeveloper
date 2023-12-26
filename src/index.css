@@ -1,13 +1,77 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+
+/* Custom Class */
+.cursive-font {
+    font-family: cursive;
+  }
+
+/* Banner */
+@keyframes rocketAnimation {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+  
+  .banner {
+    animation: rocketAnimation 2s infinite;
+  }
+
+  @keyframes rocketAnimation {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-30px);
+    }
+  }
+  
+  .banner {
+    animation: rocketAnimation 3s infinite;
+    animation-timing-function: ease-in-out;
+  }
+  
+  
+
+  /* Pagination */
+  .pagination-box{
+      background-color: #007bff;
+  }
+  .pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .pagination li {
+    margin-right: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #fff;
+    border: 1px solid #ddd;
+    padding: 6px 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .pagination li:hover {
+    background-color: #eee;
+    color: #007bff;
+  }
+  
+  .pagination .active {
+    font-weight: bold;
+    color: #007bff;
+    background-color: white;
+    border: 1px solid #007bff;
+  }
+  
+  .react-datepicker-wrapper {
+    width: 100%;
+  }
