@@ -17,6 +17,8 @@ const Capsules = () => {
   const [originalLaunch, setOriginalLaunch] = useState("");
   const [type, setType] = useState("");
   const [isSearched, setIsSearched] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCapsule, setSelectedCapsule] = useState(null);
 
   const capsulesPerPage = 10;
 
@@ -89,6 +91,10 @@ const Capsules = () => {
     setCurrentPage(0);
   };
   
+  const handleCapsuleClick = (capsule) => {
+    setSelectedCapsule(capsule);
+    setIsModalOpen(true);
+  };
 
   return (
     <div>
@@ -171,21 +177,22 @@ const Capsules = () => {
           currentCapsules.map((capsule) => (
             <div
               key={capsule.capsule_serial}
-              className="rounded-md border shadow-md p-4 mb-4"
+              className="rounded-md border shadow-md p-4 mb-4 cursor-pointer"
+              onClick={() => handleCapsuleClick(capsule)}
             >
               <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-semibold mb-2">
+                <h2 className="text-2xl font-bold mb-2">
                   {capsule.capsule_serial}
                 </h2>
                 <img src={logo} alt="" width="45px" />
               </div>
-              <p className="text-gray-600 text-sm mb-2">{capsule.status}</p>
-              <p className="text-gray-700 mb-4">{capsule.details}</p>
+              <p className="text-gray-600 text-sm mb-2 font-semibold capitalize">{capsule.status}</p>
+              <p className="text-gray-700 mb-4 font-semibold ">{capsule.details}</p>
               <div className="flex justify-between items-center">
-                <p className="text-gray-600 text-xs">
+                <p className="text-gray-600 text-xs font-semibold ">
                   {formatDate(capsule.original_launch)}
                 </p>
-                <p className="text-gray-600 text-xs">{capsule.type}</p>
+                <p className="text-gray-600 text-xs font-semibold ">{capsule.type}</p>
               </div>
             </div>
           ))
@@ -206,6 +213,22 @@ const Capsules = () => {
           activeClassName={"active"}
         />
       </div>
+
+      {isModalOpen && (
+        <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
+          <div className="modal">
+            <div className="modal-header">
+              <h2 className="font-bold">{selectedCapsule?.capsule_serial}</h2>
+              <button onClick={() => setIsModalOpen(false)} className="text-red-900">Close</button>
+            </div>
+            <div className="modal-content">
+              <p className="capitalize"><span className="font-semibold">Status:</span> {selectedCapsule?.status}</p>
+              <p><span className="font-semibold">Details:</span> {selectedCapsule?.details}</p>
+              <p><span className="font-semibold">original Launch:</span> {formatDate(selectedCapsule?.original_launch)}</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
